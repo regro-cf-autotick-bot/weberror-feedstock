@@ -6,24 +6,24 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: c19f8bd57de2f1eea1b18a44f1ba1ad27421097c9ecfa0ae754fa42c9cdd9864
 
 build:
   noarch: python
-  number: 1
+  number: 2
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
 
 requirements:
   host:
     - pip
-    - python
+    - python {{ python_min }}
     - setuptools
 
   run:
     - paste >=1.7.1
     - pygments
-    - python
+    - python >={{ python_min }}
     - tempita
     - webob
 
@@ -36,6 +36,7 @@ test:
     - nose
     - paste
     - webtest
+    - python {{ python_min }}
 
 about:
   home: https://github.com/Pylons/weberror
